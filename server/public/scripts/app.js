@@ -45,6 +45,7 @@ function setIndex (counter) {
             $.each(data.people, function(i, person) {
                 counter++;
                 $('ul').append('<li class="index-point" id=' + '"' + counter + '"' + '>' + counter + '</li>');
+                $('#1').addClass('index-point-active');
             });
         },
         error: function() {
@@ -63,17 +64,18 @@ function advanceCassette() {
     // there's a bug when looping that selects the second index instead of the first
     // would prefer that the 18 was not hard-coded...how to access array.length on a JSON Object?
     if (index > 18) {
+        $('li').last().removeClass('index-point-active');
         index = 0;
+        $('#' + [index + 1]).addClass('index-point-active');
     }
-    $('li.index-point').first().addClass('index-point-active');
-    $('li').last().removeClass('index-point-active');
+
 
     //this will append the data for an individual at the given index, and remove the previous div
     getData(index);
     console.log(index);
-    $('#peopleContainer').children().first().remove();
-    $('li.index-point-active').next().addClass('index-point-active');  //advance the nav index--this is buggy
-    $('li.index-point-active').prev().removeClass('index-point-active');
+    $('#peopleContainer').children().first().remove().fadeOut();
+    $('#' + [index + 1]).addClass('index-point-active');
+    $('#' + index).removeClass('index-point-active');
 
 
 
@@ -82,15 +84,16 @@ function advanceCassette() {
 
 function rewindCassette() {
     index--;
-    if(index < 0) {
+    if(index < 1) {
+        $('#' + 1).removeClass('index-point-active');
         index = 18;
+        $('#' + [index + 1]).addClass('index-point-active');
     }
-    $('li.index-point').first().removeClass('index-point-active');
-    $('li').last().addClass('index-point-active');
+
     console.log(index);
     getData(index);
     $('#peopleContainer').children().last().remove();
-    $('.index-point-active').prev().addClass('index-point-active');
-    $('.index-point-active').next().removeClass('index-point-active');
+    $('#' + [index + 2]).removeClass('index-point-active');
+    $('#' + [index+1]).addClass('index-point-active');
 }
 
