@@ -4,6 +4,7 @@ var index = 0; //this will be used to track every classmate and act as an index 
 var timer;
 
 $(document).ready(function(){
+    setIndex(index);
     getData(index); //get Kris Szafranski's div to start the party
 
     timer = window.setInterval(advanceCassette, 5000);
@@ -32,6 +33,25 @@ function getData(counter){
         error: function() {
             console.log('ERROR: Unable to contact the server.');
         }
+    });
+}
+
+function setIndex (counter) {
+    $.ajax({
+        type: 'GET',
+        url: '/data',
+        success: function(data) {
+            //console.log(data);
+            $.each(data.people, function(i, person) {
+                counter++;
+                $('ul').append('<li class="index-point" id=' + '"' + counter + '"' + '>' + counter + '</li>');
+            });
+        },
+        error: function() {
+            // do logic here on fail
+            console.log('oops, error!');
+        }
+
     });
 }
 
