@@ -10,13 +10,13 @@ $(document).ready(function(){
     timer = window.setInterval(advanceCassette, 5000);
 
 
-     $('#next').on('click', advanceCassette); //yes, like the song by Spoon.
+    $('#next').on('click', advanceCassette); //yes, like the song by Spoon.
     $('#previous').on('click', rewindCassette);
 });
 
 //end document ready function
 
-//we will pass in the counterId into the counter parameter
+//we will pass 'index' into the counter parameter
 function getData(counter){
     $.ajax({
         type: "GET",
@@ -28,7 +28,9 @@ function getData(counter){
                 $el.append('<h1>' + data.people[counter].name + '</h1>');
                 $el.append('<h2>' + 'Favorite Movie #1: ' + data.people[counter].favoriteMovie1 + '</h2>');
                 $el.append('<h2>' + 'Favorite Movie #2: ' + data.people[counter].favoriteMovie2 + '</h2>');
-                $el.append('<h2>' + 'Favortie Song: ' + data.people[counter].favoriteSong + '</h2>');
+                $el.append('<h2>' + 'Favorite Song: ' + data.people[counter].favoriteSong + '</h2>');
+
+                $el.fadeIn(600, function(){});
         },
         error: function() {
             console.log('ERROR: Unable to contact the server.');
@@ -41,7 +43,6 @@ function setIndex (counter) {
         type: 'GET',
         url: '/data',
         success: function(data) {
-            //console.log(data);
             $.each(data.people, function(i, person) {
                 counter++;
                 $('ul').append('<li class="index-point" id=' + '"' + counter + '"' + '>' + counter + '</li>');
@@ -49,10 +50,8 @@ function setIndex (counter) {
             });
         },
         error: function() {
-            // do logic here on fail
             console.log('oops, error!');
         }
-
     });
 }
 
@@ -77,9 +76,7 @@ function advanceCassette() {
     $('#' + [index + 1]).addClass('index-point-active');
     $('#' + index).removeClass('index-point-active');
 
-
-
-
+    //clearInterval(timer);
 }
 
 function rewindCassette() {

@@ -10,9 +10,10 @@
     border: 1px solid black;
     float: left;
     display: inline-block;
-    margin: 4px;
+    margin: 6px;
     text-align: center;
     font-weight: bold;
+    padding: 2px;
 }
 
 .index-point-active {
@@ -25,9 +26,11 @@
 
 .classmate {
     display: inline;
-    border: 3px solid #555;
+    border: 5px solid #555;
+    border-radius: 1em;
     margin: 0 auto;
-    padding: 1em auto;
+    padding: 1.5em auto;
+    margin-top: 2em;
 
 }
 
@@ -40,6 +43,8 @@ ul {
 
 .btn {
     margin-top: 5em;
+    font-size: 1.5em;
+    font-weight: bold;
 }
 
 .hidden {
